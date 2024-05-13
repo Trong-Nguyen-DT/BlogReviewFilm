@@ -1,6 +1,5 @@
 package com.dac.BackEnd.convertor;
 
-import java.nio.file.attribute.UserPrincipal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +20,9 @@ public class UserConvertor {
         }
         user.setStatus(entity.getStatus());
         user.setInsertDateTime(entity.getInsertDateTime());
-        user.setInsertByUserId(entity.getInsertByUserId());
+        user.setInsertBy(entity.getInsertByUserId());
         user.setUpdateDateTime(entity.getUpdateDateTime());
-        user.setUpdateByUserId(entity.getUpdateByUserId());
+        user.setUpdateBy(entity.getUpdateByUserId());
         user.setDeleteFlag(entity.getDeleteFlag());
         return user;
     }

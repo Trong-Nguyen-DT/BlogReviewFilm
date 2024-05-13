@@ -4,18 +4,24 @@ import java.util.List;
 
 import com.dac.BackEnd.model.User;
 import com.dac.BackEnd.model.request.ReviewerInput;
+import com.dac.BackEnd.model.request.ReviewerUpdateInput;
+import com.dac.BackEnd.model.request.StatusRequest;
+import com.dac.BackEnd.model.request.DeleteRequest;
+import com.dac.BackEnd.model.response.PagedResponse;
 import com.dac.BackEnd.model.response.ResponsePage;
 
 public interface UserService {
 
-    List<User> getAllUser(int page);
-
-    ResponsePage getPageInfo(int page, String by, String status, String searchText);
-
-    List<User> getAllUserByStatus(String status, int page);
-
-    List<User> getAllUserByText(String searchText, int page);
+    PagedResponse<User> getAllUser(int page, String status, String searchText);
 
     User createNewReviewer(ReviewerInput input);
+
+    User updateReviewer(ReviewerUpdateInput input, Long reviewerId);
+
+    void deleteUser(Long reviewerId);
+
+    void updateStatusReviewer(StatusRequest status);
+
+    void deleteUsers(DeleteRequest deletes);
     
 }

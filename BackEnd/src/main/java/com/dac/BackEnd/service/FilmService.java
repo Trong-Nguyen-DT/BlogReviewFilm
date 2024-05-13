@@ -3,22 +3,31 @@ package com.dac.BackEnd.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.dac.BackEnd.model.Film;
-import com.dac.BackEnd.model.response.ResponsePage;
+import com.dac.BackEnd.model.request.DeleteRequest;
+import com.dac.BackEnd.model.request.FilmInput;
+import com.dac.BackEnd.model.response.PagedResponse;
+
 
 
 public interface FilmService {
 
-    ResponsePage getPageInfo(int page, String by, Long category, String searchText, LocalDate startTime, LocalDate endTime);
+    PagedResponse<Film> getAllFilm(int page, Long category, String searchText, LocalDate startTime, LocalDate endTime);
 
-    List<Film> getAllFilm(int page);
+    Film createNewFilm(FilmInput filmInput);
 
-    List<Film> getAllBlogsByCategory(Long category, int page);
+    Film updateFilm(FilmInput input, Long filmId);
 
-    List<Film> getAllFilmByText(String searchText, int page);
+    Film updateImageFilm(MultipartFile file, Long filmId);
 
-    List<Film> getAllFilmByStartDate(LocalDate startTime, LocalDate endTime, int page);
+    void deleteFilm(Long filmId);
 
-    List<Film> getAllFilmDeleteFalse();
+    void deleteFilms(DeleteRequest deletes);
+
+    List<Film> getAllFilmSelect();
+
+    PagedResponse<Film> getAllFilmGuest(int page, String searchText);
     
 }

@@ -3,8 +3,6 @@ package com.dac.BackEnd.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import com.dac.BackEnd.entity.UserEntity.UserEntity;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -19,11 +17,13 @@ public class Film {
     private Long id;
 
     @NotNull
-    private Long categoryId;
+    private Category category;
 
     @NotBlank
     @Size(max = 255)
     private String nameFilm;
+
+    private String image;
 
     @NotBlank
     @Size(max = 255)
@@ -43,13 +43,13 @@ public class Film {
     private LocalDateTime insertDateTime;
 
     @NotNull
-    private Long insertByReviewerId;
+    private User insertBy;
 
     @NotNull
     private LocalDateTime updateDateTime;
 
     @NotNull
-    private long updateByReviewerId;
+    private User updateBy;
 
     @NotNull
     private Boolean deleteFlag;

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.dac.BackEnd.entity.FilmEntity;
-import com.dac.BackEnd.model.Blog;
 import com.dac.BackEnd.model.Film;
 
 public class FilmConvertor {
@@ -12,16 +11,17 @@ public class FilmConvertor {
     public static Film toModel(FilmEntity entity) {
         Film film = new Film();
         film.setId(entity.getId());
-        film.setCategoryId(entity.getCategory().getId());
+        film.setCategory(CategoryConvertor.toModel(entity.getCategory()));
         film.setNameFilm(entity.getNameFilm());
+        film.setImage(entity.getImage());
         film.setDirector(entity.getDirector());
         film.setCountry(entity.getCountry());
         film.setStartDate(entity.getStartDate());
         film.setDescription(entity.getDescription());
         film.setInsertDateTime(entity.getInsertDateTime());
-        film.setInsertByReviewerId(entity.getInsertBy().getId());
+        film.setInsertBy(UserConvertor.toModel(entity.getInsertBy()));
         film.setUpdateDateTime(entity.getUpdateDateTime());
-        film.setUpdateByReviewerId(entity.getUpdateBy().getId());
+        film.setUpdateBy(UserConvertor.toModel(entity.getUpdateBy()));
         film.setDeleteFlag(entity.getDeleteFlag());
         return film;
     }

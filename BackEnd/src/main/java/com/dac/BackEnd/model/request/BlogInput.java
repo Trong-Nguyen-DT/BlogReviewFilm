@@ -2,6 +2,8 @@ package com.dac.BackEnd.model.request;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -19,11 +21,13 @@ public class BlogInput {
     @Size(max = 255)
     private String title;
 
+    private MultipartFile blogImage;
+
+    private MultipartFile blogImageIntroduce;
+
     @NotBlank
     @Size(max = 700)
     private String summary;
-
-    private String image;
 
     @NotNull
     private double point;

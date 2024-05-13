@@ -1,4 +1,4 @@
 // // config.js
-const appURL = 'http://34.202.165.249';
+const appURL = 'http://14.225.44.231:8080';
 
 export default appURL;

@@ -22,17 +22,23 @@ public interface UserRepository extends JpaRepository<UserEntity, Long>{
 
     Boolean existsByEmail(String email);
 
-    List<UserEntity> findAllByDeleteFlagFalse();
+    @Query("SELECT COUNT(u) FROM UserEntity u WHERE u.role = UserRole.ROLE_REVIEWER AND u.deleteFlag = false")
+    long countAllReviewer();
 
-    long countByRole(UserRole role);
+    Optional<UserEntity> findByEmailAndDeleteFlagFalse(String email);
 
-    long countByStatus(UserStatus status);
+    Optional<UserEntity> findByEmailAndRole(String email, UserRole role);
 
-    @Query("SELECT COUNT(u) FROM UserEntity u WHERE u.name LIKE %:searchText%")
-    int countByTextInName(@Param("searchText") String searchText);
+    Optional<UserEntity> findByEmail(String email);
 
-    @Query("SELECT u FROM UserEntity u WHERE LOWER(u.name) LIKE %:searchText%")
-    Page<UserEntity> findByTextInName(String searchText, Pageable pageable);
-
-    List<UserEntity> findAllByStatus(UserStatus status, Pageable pageable);
+    @Query("SELECT u FROM UserEntity u " +
+            "WHERE ((:status IS NULL) OR (u.status = :status)) " +
+            "AND (LOWER(u.name) LIKE LOWER(CONCAT('%', COALESCE(:searchText, ''), '%')) " +
+            "OR LOWER(u.phone) LIKE LOWER(CONCAT('%', COALESCE(:searchText, ''), '%')) " +
+            "OR LOWER(u.email) LIKE LOWER(CONCAT('%', COALESCE(:searchText, ''), '%'))) " +
+            "AND u.deleteFlag = false ORDER BY u.insertDateTime DESC")
+    Page<UserEntity> findAllReviewers(
+            @Param("status") UserStatus status,
+            @Param("searchText") String searchText,
+            Pageable pageable);
 }
